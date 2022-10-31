@@ -5,65 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 15:29:36 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/29 18:26:27 by arforgea         ###   ########.fr       */
+/*   Created: 2022/10/31 21:18:46 by arforgea          #+#    #+#             */
+/*   Updated: 2022/10/31 22:42:04 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
-#include <stdlib.h>
+#include "get_next_linge.h"
 
-#include <stdio.h>
-
-char *get_next_line(int fd)
+int	check_buff(char *buff)
 {
-	char buff[1];
-	char *f_str;
-	char *tmp;
-	char *tmp2;
-	int  read_size;
-	int index;
+	int	index;
+
+	index = 0;
+	while (buff[index])
+	{
+		if (buff[index] == '\n')
+			return (1);
+		else
+			index += 1;
+	}
+	return (0);
+}
+
+char	*get_next_linge(int fd)
+{
+	char		buff[6];
+	char		tmp;
+	static char	tmp2;
+	int			read_size;
 
 	tmp = NULL;
-	f_str = NULL;
 	read_size = 1;
 	while (read_size)
 	{
-		read_size = read(fd, buff, 1);
-		index = chek_bn(buff);
-		if (index)
+		read_size = read(fd, buff, 1)
+		if (!read_size)
+			break;
+		if (tmp2)
 		{
-			if (!f_str)
-				f_str = mini_split(buff, tmp2, index);
-			else
-				tmp = mini_split(buff, tmp2, index);
-				ft_strcat
-		}		
-		if (!tmp)
-		{
-			tmp = malloc(sizeof(char) * read_size);
-			ft_strcpy(buff, tmp, read_size);
+			tmp = ft_strcat(tmp2, buff);
+			tmp2 = NULL;
+			continue;
 		}
-		else if (tmp)
+		if (!check_buff(buff))
 		{
-			f_str = ft_strcat(tmp, buff);
-			free(tmp);
+			tmp = ft_strcat(tmp, buff);
 			tmp = NULL;
-			printf("%s", f_str);
+			continue;
+		}
+		else
+		{
+			if (!tmp)
+				final_str = ft_split(buff, tmp2);
+			else
+				{
+					tmp3 = ft_split(buff, tmp2);
+					final_str = ft_strcat(tmp, tmp3);
+				}
+			return (final_str)
 		}
 	}
-	
-}
-
-int	main(void)
-{
-	int	fd;
-//	int i = 0;
-	
-	fd = open("GNL.txt", O_RDONLY);
-//	while (1)
-//	{
-//		getchar();
-		get_next_line(fd);
-//	}
-	return (0);
+		write(1, "(null)", 6);
+		return (0);
 }
