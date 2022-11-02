@@ -70,7 +70,6 @@ char	*get_next_line(int fd)
 		if (!read_size)
 		{
 			free(buff);
-			free(tmp):
 			return (NULL);
 		}
 		tmp = ft_strcat(tmp, buff);
@@ -90,12 +89,12 @@ int main(void)
 
 	cmp = 0;
 	fd = open("GNL.txt", O_RDONLY);
-	while (++cmp < 6)
+	while (++cmp < 1000)
 	{
 		str = get_next_line(fd);
 		printf("%s", str);
-		free(str);
+		if (str)
+			free(str);
 	}
-		free(str);
 	close(fd);
 }
