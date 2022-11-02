@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/02 19:02:10 by arforgea          #+#    #+#             */
+/*   Updated: 2022/11/02 19:04:52 by arforgea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -17,7 +28,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*final_tab;
 	size_t	s_len;
- 
+
 	if (!s)
 		return (NULL);
 	if (ft_strlen(s) <= start)
@@ -32,7 +43,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!final_tab)
 		return (NULL);
 	ft_strlcpy(final_tab, s + start, len + 1);
-		return (final_tab);
+	return (final_tab);
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
@@ -66,12 +77,12 @@ char	*ft_strcat(char *s1, char *s2)
 	if (s2)
 		s_s2 = ft_strlen(s2);
 	f_str = malloc(sizeof(char) * (s_s1 + s_s2) + 1);
-	if(s1)
+	if (s1)
 	{
 		ft_strlcpy(f_str, s1, s_s1 + 1);
 		free(s1);
 	}
-	if(s2)
+	if (s2)
 	{
 		ft_strlcpy(f_str + s_s1, s2, s_s2 + 1);
 		free(s2);
