@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:05:09 by arforgea          #+#    #+#             */
-/*   Updated: 2022/11/02 19:09:59 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:26:51 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef GET_NEXT_LINE_H
@@ -14,6 +14,7 @@
 
 # include <stdlib.h>
 # include <fcntl.h>
+# include <unistd.h>
 
 char	*ft_strdup(const char *s);
 char	*ft_strcat(char *s1, char *s2);

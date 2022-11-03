@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 21:18:46 by arforgea          #+#    #+#             */
-/*   Updated: 2022/11/02 20:47:27 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:47:27 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -27,47 +27,44 @@ int	check_buff(char *buff)
 	return (0);
 }
 
-char	*get_line(char *str)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int		index_s;
-	int		index_e;
-	char	*final_str;
-	char	*tmp;
+	char	*tab;
+	int		b_size;
 
-	index_s = check_buff(str);
-	index_e = ft_strlen(str);
-	tmp = malloc(sizeof(char) * index_e + 1);
-	ft_strlcpy(tmp, str, index_e + 1);
-	final_str = ft_substr(tmp, 0, index_s);
-	free(tmp);
+	b_size = nmemb * size;
+	if (nmemb >= 2147483647 && size >= 2147483647)
+		return (NULL);
+	tab = malloc(b_size);
+	if (!tab)
+		return (NULL);
+	while (b_size)
+		tab [--b_size] = 0;
+	return (tab);
+}
+
+char	*get_last_line(char **str)
+{
+	char	*final_str;
+
+	final_str = ft_strdup(*str);
+	free(*str);
+	*str = NULL;
 	return (final_str);
 }
 
-char	*get_satic(char *str)
+char	*get_tmp(char **tmp)
 {
-	int		index_s;
-	int		index_e;
 	char	*final_str;
+	int		tmp_size;
+	int		index;
 
-	index_s = check_buff(str);
-	index_e = ft_strlen(str);
-	final_str = ft_substr(str, index_s, index_e - index_s);
-	free(str);
+	index = check_buff(*tmp);
+	tmp_size = ft_strlen(*tmp);
+	final_str = ft_substr(*tmp, index, tmp_size - index);
+	free(*tmp);
+	*tmp = NULL;
 	return (final_str);
-}
-
-char	*get_last_line(char *str)
-{
-	char	*tmp;
-	int		str_size;
-
-	if (!str)
-		return (0);
-	str_size = 1 + ft_strlen(str);
-	tmp = malloc(sizeof(char) * str_size);
-	ft_strlcpy(tmp, str, str_size);
-	free(str);
-	return (tmp);
 }
 
 char	*get_next_line(int fd)
@@ -78,23 +75,22 @@ char	*get_next_line(int fd)
 	int			read_size;
 
 	while (!check_buff(tmp))
-	{
-		buff = malloc(sizeof(char) * 100);
-		read_size = read(fd, buff, 100);
-		if (!read_size)
+	{	
+		buff = ft_calloc(1, BUFFER_SIZE + 1);
+		read_size = read(fd, buff, BUFFER_SIZE);
+		if (!read_size || read_size == -1)
 		{
 			free(buff);
-			if (tmp != NULL)
+			if (tmp && *tmp != 0)
 			{
-				final_str = get_last_line(tmp);
-				tmp = NULL;
+				final_str = get_last_line(&tmp);
 				return (final_str);
-			}	
+			}
 			return (NULL);
 		}
 		tmp = ft_strcat(tmp, buff);
 	}
-	final_str = get_line(tmp);
-	tmp = get_satic(tmp);
+	final_str = ft_substr(tmp, 0, check_buff(tmp));
+	tmp = get_tmp(&tmp);
 	return (final_str);
 }

@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:02:10 by arforgea          #+#    #+#             */
-/*   Updated: 2022/11/02 19:04:52 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/11/03 18:05:15 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -81,11 +81,13 @@ char	*ft_strcat(char *s1, char *s2)
 	{
 		ft_strlcpy(f_str, s1, s_s1 + 1);
 		free(s1);
+		s1 = NULL;
 	}
 	if (s2)
 	{
 		ft_strlcpy(f_str + s_s1, s2, s_s2 + 1);
 		free(s2);
+		s2 = NULL;
 	}
 	return (f_str);
 }
